@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController // @Controller + @ResponseBody
 @RequestMapping("/lifecycle/test02")
-public class Test02Controller {
+public class Test02RestController {
 
 	@RequestMapping("/1")
 	public List<Map<String, Object>> movieList() {

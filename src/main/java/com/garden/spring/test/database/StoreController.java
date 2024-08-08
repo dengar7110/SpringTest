@@ -16,13 +16,14 @@ public class StoreController {
 	@Autowired
 	private StoreService storeService;
 	
-	
 	@RequestMapping("/db/store/list")
 	@ResponseBody
 	public List<Store> storeList() {
+		
+		// 가게 정보 리스트를 json 으로 response 담는다.
+		// 가게 정보 리스트 얻어 오기
 		List<Store> storeList = storeService.getStoreList();
 		return storeList;
-		
 	}
 	
 	

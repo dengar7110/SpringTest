@@ -8,7 +8,8 @@ import com.garden.spring.test.database.domain.Store;
 
 @Mapper
 public interface StoreRepository {
-
+	
+	// store 테이블 모든 행 조회
 	public List<Store> selectStoreList();
 	
 }

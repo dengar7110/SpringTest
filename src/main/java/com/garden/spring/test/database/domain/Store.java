@@ -3,6 +3,7 @@ package com.garden.spring.test.database.domain;
 import java.time.LocalDateTime;
 
 public class Store {
+	
 	private int id;
 	private String store;
 	private String phoneNumber;

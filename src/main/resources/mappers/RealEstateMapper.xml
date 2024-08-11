@@ -102,5 +102,23 @@
 	        #{realEstate.rentPrice}
 	    );
 	</insert>
+	
+	<update id="updateRealEstateById" parameterType="map">
+		UPDATE
+			`real_estate`
+		SET 
+			`price` = 70000
+		WHERE
+			`id` = #{id}
+	</update>
+ 
+ 	<delete id="delectRealEstate" parameterType="map">
+ 		DELETE FROM
+ 			`real_estate`
+ 		WHERE
+ 			`id` = #{id}
+ 	
+ 	</delete>
+ 
  
 </mapper>

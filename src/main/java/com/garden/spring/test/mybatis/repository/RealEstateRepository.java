@@ -19,4 +19,9 @@ public interface RealEstateRepository {
 	public int insertRealEstate(RealEstate realEstate);
 
 	public int insertRealEstateByRealtorId(@Param("realtorId") int realtorId, @Param("realEstate") RealEstate realEstate);
+
+	public int updateRealEstateById(@Param("id") int id);
+	
+	public int delectRealEstate(@Param("id") int id);
+	
 }

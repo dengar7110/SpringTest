@@ -40,4 +40,15 @@ public class RealEstateService {
 		return count;
 	}
 	
+	public int updateRealEstateById(int id) {
+		int count = realEstateRepository.updateRealEstateById(id);
+		return count;
+	}
+	
+	public int deleteRealEstate(int id) {
+		int count = realEstateRepository.delectRealEstate(id);
+		return count;
+	}
+	
+	
 }

@@ -22,40 +22,85 @@
  			`id` = #{id};
  	</select>
 
- 	<select id="selectRentUnder" resultType="com.garden.spring.test.mybatis.domain.RealEstate" parameterType="int">
- 		SELECT
- 			`id`
- 			,`realtorId`
- 			,`address`
- 			,`area`
- 			,`type`
- 			,`price`
- 			,`rentPrice`
- 			,`createdAt`
- 			,`updatedAt`
- 		FROM
- 			`real_estate`
- 		WHERE
- 			`rentPrice` &lt;= #{rentPrice};
+ 	<select id="selectRealEstateListByRentPrice" resultType="com.garden.spring.test.mybatis.domain.RealEstate" parameterType="int">
+		SELECT 
+			`id`
+			, `realtorId`
+			, `address`
+			, `area`
+			, `type`
+			, `price`
+			, `rentPrice`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`real_estate`
+		WHERE 
+			<![CDATA[`rentPrice` < #{rentPrice} ]]>
  	</select>
  	
- 	<select id="selectAreaPrice" resultType="com.garden.spring.test.mybatis.domain.RealEstate" parameterType="int">
- 		SELECT
- 			`id`
- 			,`realtorId`
- 			,`address`
- 			,`area`
- 			,`type`
- 			,`price`
- 			,`rentPrice`
- 			,`createdAt`
- 			,`updatedAt`
- 		FROM
- 			`real_estate`
- 		WHERE
- 			`area` &gt;= #{area}
- 		AND
- 			`price` &lt;= #{price};
+ 	<select id="selectRealEstateListByAreaAndPrice" resultType="com.garden.spring.test.mybatis.domain.RealEstate" parameterType="map">
+ 		SELECT 
+			`id`
+			, `realtorId`
+			, `address`
+			, `area`
+			, `type`
+			, `price`
+			, `rentPrice`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`real_estate`
+		WHERE
+			<![CDATA[
+			`area` >= #{area}
+			AND `price` <= #{price}
+			AND `type` = '매매'
+			]]>
+ 			
  	</select>
+ 	
+	<insert id="insertRealEstate" parameterType="com.garden.spring.test.mybatis.domain.RealEstate">
+ 		INSERT INTO
+ 			`real_estate`
+ 		(
+ 			`realtorId`
+ 			, `address`
+ 			, `area`
+ 			, `type`
+ 			, `price`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId}
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 		)
+ 	</insert>
+ 
+	<insert id="insertRealEstateByRealtorId" parameterType="map">
+	    INSERT INTO 
+	    	`real_estate`
+	    (
+	        `realtorId`,
+	        `address`,
+	        `area`,
+	        `type`,
+	        `price`,
+	        `rentPrice`
+	    )
+	    VALUES
+	    (
+	        #{realtorId},
+	        #{realEstate.address},
+	        #{realEstate.area},
+	        #{realEstate.type},
+	        #{realEstate.price},
+	        #{realEstate.rentPrice}
+	    );
+	</insert>
  
 </mapper>

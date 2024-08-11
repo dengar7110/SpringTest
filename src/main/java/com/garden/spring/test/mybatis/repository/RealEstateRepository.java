@@ -12,8 +12,11 @@ public interface RealEstateRepository {
 	
 	public RealEstate selectRealEstate(@Param("id") int it);
 	
-	public List<RealEstate> selectRentUnder(@Param("rentPrice") int rentPrice);
+	public List<RealEstate> selectRealEstateListByRentPrice(@Param("rentPrice") int rentPrice);
 
-	public List<RealEstate> selectAreaPrice(@Param("area") int area, @Param("price") int price);
+	public List<RealEstate> selectRealEstateListByAreaAndPrice(@Param("area") int area, @Param("price") int price);
 	
+	public int insertRealEstate(RealEstate realEstate);
+
+	public int insertRealEstateByRealtorId(@Param("realtorId") int realtorId, @Param("realEstate") RealEstate realEstate);
 }

@@ -12,34 +12,73 @@ import com.garden.spring.test.mybatis.domain.RealEstate;
 import com.garden.spring.test.mybatis.service.RealEstateService;
 
 @Controller
+@RequestMapping("/mybatis/real-estate")
 public class RealEstateController {
 	
 	@Autowired
 	private RealEstateService realEstateService;
 	
-	@RequestMapping("/mybatis/real-estate/select/1")
+	@RequestMapping("/select/1")
 	@ResponseBody
 	public RealEstate realEstate(@RequestParam("id") int id) {
 		
 		RealEstate realEstate = realEstateService.getRealEstate(id);
 		
 		return realEstate;
+		
 	}
 	
-	@RequestMapping("/mybatis/real-estate/select/2")
+	@RequestMapping("/select/2")
 	@ResponseBody
-	public List<RealEstate> view2(@RequestParam("rent") int rentPrice){
+	public List<RealEstate> realEstateByRentPrice(@RequestParam("rent") int rentPrice) {
 		
-		List<RealEstate> realEstateList = realEstateService.getRentUnder(rentPrice);
+		List<RealEstate> realEstateList = realEstateService.getRealEstateListByRentPrice(rentPrice);
 		
 		return realEstateList;
+		
 	}
 	
-	@RequestMapping("/mybatis/real-estate/select/3")
+	@RequestMapping("/select/3")
 	@ResponseBody
-	public List<RealEstate> view3(@RequestParam("area") int area, @RequestParam("price") int price){
-		List<RealEstate> realEstateList = realEstateService.getAreaPrice(area, price);
+	public List<RealEstate> realEstateByAreaAndPrice(@RequestParam("area") int area, @RequestParam("price")int price) {
+		
+		List<RealEstate> realEstateList = realEstateService.getRealEstateListByAreaAndPrice(area, price);
+		
 		return realEstateList;
+		
 	}
-
+	
+	@RequestMapping("/insert")
+	@ResponseBody
+	public String InsertRealEsate() {
+		RealEstate realEstate = new RealEstate();
+		realEstate.setRealtorId(3);
+		realEstate.setAddress("푸르지용 리버 303동 1104호");
+		realEstate.setArea(89);
+		realEstate.setType("매매");
+		realEstate.setPrice(100000);
+		
+		int count = realEstateService.addRealEstate(realEstate);
+		
+		return "입력 성공 : " + count;
+		
+	}
+	
+	
+	@RequestMapping("/insertByRealtorId")
+	@ResponseBody
+	public String InsertRealEstate2(@RequestParam("realtorId") int realtorId) {
+		
+		RealEstate realEstate = new RealEstate();
+		realEstate.setAddress("썅떼빌리버 오피스텔 814호");
+		realEstate.setArea(45);
+		realEstate.setType("월세");
+		realEstate.setPrice(100000);
+		realEstate.setRentPrice(120);
+		
+		int count = realEstateService.addRealEstateByRealtorId(realtorId, realEstate);
+		
+		return "입력 성공 : " + count;
+		
+	}
 }

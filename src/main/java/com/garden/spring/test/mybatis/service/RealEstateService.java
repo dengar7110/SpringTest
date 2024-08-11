@@ -20,15 +20,24 @@ public class RealEstateService {
 		return realEsatate;
 	}
 	
-	public List<RealEstate> getRentUnder(@Param("rentPrice") int rentPrice){
-		List<RealEstate> realEstateList = realEstateRepository.selectRentUnder(rentPrice);
+	public List<RealEstate> getRealEstateListByRentPrice(@Param("rentPrice") int rentPrice){
+		List<RealEstate> realEstateList = realEstateRepository.selectRealEstateListByRentPrice(rentPrice);
 		return realEstateList;
 	};
 	
-	public List<RealEstate> getAreaPrice(@Param("area") int area, @Param("price") int price){
-		List<RealEstate> realEstateList = realEstateRepository.selectAreaPrice(area, price);
+	public List<RealEstate> getRealEstateListByAreaAndPrice(@Param("area") int area, @Param("price") int price){
+		List<RealEstate> realEstateList = realEstateRepository.selectRealEstateListByAreaAndPrice(area, price);
 		return realEstateList;
 	}
 	
+	public int addRealEstate(RealEstate realEstate) {
+		int count = realEstateRepository.insertRealEstate(realEstate);
+		return count;
+	}
+	
+	public int addRealEstateByRealtorId(int realtorId, RealEstate realEstate) {
+		int count = realEstateRepository.insertRealEstateByRealtorId(realtorId, realEstate);
+		return count;
+	}
 	
 }

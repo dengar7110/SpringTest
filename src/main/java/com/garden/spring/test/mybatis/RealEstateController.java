@@ -48,46 +48,47 @@ public class RealEstateController {
 		
 	}
 	
-	@RequestMapping("/insert")
+	@RequestMapping("/insert/1")
 	@ResponseBody
-	public String InsertRealEsate() {
+	public String createRealEstateByObject() {
+		
 		RealEstate realEstate = new RealEstate();
+		
 		realEstate.setRealtorId(3);
 		realEstate.setAddress("푸르지용 리버 303동 1104호");
 		realEstate.setArea(89);
 		realEstate.setType("매매");
 		realEstate.setPrice(100000);
 		
-		int count = realEstateService.addRealEstate(realEstate);
+		int count = realEstateService.addRealEstateByObject(realEstate);
 		
-		return "입력 성공 : " + count;
+		return "삽입 개수 : " + count;
 		
 	}
 	
 	
-	@RequestMapping("/insertByRealtorId")
+	@RequestMapping("/insert/2")
 	@ResponseBody
-	public String InsertRealEstate2(@RequestParam("realtorId") int realtorId) {
+	public String createRealEstate(@RequestParam("realtorId") int realtorId) {
 		
-		RealEstate realEstate = new RealEstate();
-		realEstate.setAddress("썅떼빌리버 오피스텔 814호");
-		realEstate.setArea(45);
-		realEstate.setType("월세");
-		realEstate.setPrice(100000);
-		realEstate.setRentPrice(120);
+//		address : 썅떼빌리버 오피스텔 814호
+//		area : 45
+//		type : 월세
+//		price : 100000
+//		rentPrice : 120
 		
-		int count = realEstateService.addRealEstateByRealtorId(realtorId, realEstate);
+		int count = realEstateService.addRealEstate(realtorId, "썅떼빌리버 오피스텔 814호", 45, "월세", 100000, 120);
 		
-		return "입력 성공 : " + count;
+		return "삽입 개수 : " + count;
 	} 
 	
-	@RequestMapping("/updateById")
+	@RequestMapping("/update")
 	@ResponseBody
-	public String UpdateRealEstate(@RequestParam("id")int id) {
+	public String updateRealEstate() {
+//		id가 22 인 행의 type 을 전세로 바꾸고 price 를 70000으로 변경하세요.
+		int count = realEstateService.updateRealEstate(22, "전세", 70000);
 		
-		int count = realEstateService.updateRealEstateById(id);
-		
-		return "수정 성공 : " + count;
+		return "수정 개수 : " + count;
 		
 	}
 	
@@ -97,7 +98,7 @@ public class RealEstateController {
 		
 		int count = realEstateService.deleteRealEstate(id);
 		
-		return "삭제 성공 : " + count;
+		return "삭제 개수 : " + count;
 	}
 			
 	

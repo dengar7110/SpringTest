@@ -61,7 +61,7 @@
  			
  	</select>
  	
-	<insert id="insertRealEstate" parameterType="com.garden.spring.test.mybatis.domain.RealEstate">
+	<insert id="insertRealEstateByObject" parameterType="com.garden.spring.test.mybatis.domain.RealEstate">
  		INSERT INTO
  			`real_estate`
  		(
@@ -70,6 +70,7 @@
  			, `area`
  			, `type`
  			, `price`
+ 			, `rentPrice`
  		)
  		VALUES
  		(
@@ -78,46 +79,48 @@
  			, #{area}
  			, #{type}
  			, #{price}
+ 			, #{rentPrice}
  		)
  	</insert>
  
-	<insert id="insertRealEstateByRealtorId" parameterType="map">
-	    INSERT INTO 
-	    	`real_estate`
-	    (
-	        `realtorId`,
-	        `address`,
-	        `area`,
-	        `type`,
-	        `price`,
-	        `rentPrice`
+	<insert id="insertRealEstate" parameterType="map">
+ 		INSERT INTO
+ 			`real_estate`
+ 		(
+ 			`realtorId`
+ 			, `address`
+ 			, `area`
+ 			, `type`
+ 			, `price`
+ 			, `rentPrice`
 	    )
 	    VALUES
 	    (
-	        #{realtorId},
-	        #{realEstate.address},
-	        #{realEstate.area},
-	        #{realEstate.type},
-	        #{realEstate.price},
-	        #{realEstate.rentPrice}
-	    );
+	        #{realtorId}
+	        , #{address}
+	        , #{area}
+	        , #{type}
+	        , #{price}
+	        , #{rentPrice}
+	    )
 	</insert>
 	
-	<update id="updateRealEstateById" parameterType="map">
+	<update id="updateRealEstate" parameterType="map">
 		UPDATE
 			`real_estate`
 		SET 
-			`price` = 70000
+			`type` = #{type}
+			, `price` = #{price}
+			, `updatedAt` = now()
 		WHERE
 			`id` = #{id}
 	</update>
  
- 	<delete id="delectRealEstate" parameterType="map">
+ 	<delete id="deleteRealEstate" parameterType="int">
  		DELETE FROM
  			`real_estate`
  		WHERE
  			`id` = #{id}
- 	
  	</delete>
  
  

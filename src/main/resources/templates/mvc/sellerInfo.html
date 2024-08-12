@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>판매자 정보</h1>
+	<div th:if="${seller != null}">
+		<img width="150" th:src="${seller.profileImage}" alt="판매자 프로필 이미지">
+		<div th:text="${seller.nickname}"></div>
+		<div th:text="${seller.temperature}"></div>
+	</div>
+	<div th:if="${seller == null}">
+		<p>판매자 정보를 찾을 수 없습니다.</p>
+	</div>
+</body>
+</html>

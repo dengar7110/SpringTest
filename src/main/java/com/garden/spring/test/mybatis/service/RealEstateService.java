@@ -25,28 +25,38 @@ public class RealEstateService {
 		return realEstateList;
 	};
 	
-	public List<RealEstate> getRealEstateListByAreaAndPrice(@Param("area") int area, @Param("price") int price){
+	public List<RealEstate> getRealEstateListByAreaAndPrice(
+			@Param("area") int area
+			, @Param("price") int price){
+		
 		List<RealEstate> realEstateList = realEstateRepository.selectRealEstateListByAreaAndPrice(area, price);
 		return realEstateList;
 	}
 	
-	public int addRealEstate(RealEstate realEstate) {
-		int count = realEstateRepository.insertRealEstate(realEstate);
+	public int addRealEstateByObject(RealEstate realEstate) {
+		int count = realEstateRepository.insertRealEstateByObject(realEstate);
 		return count;
 	}
 	
-	public int addRealEstateByRealtorId(int realtorId, RealEstate realEstate) {
-		int count = realEstateRepository.insertRealEstateByRealtorId(realtorId, realEstate);
+	public int addRealEstate(
+			int realtorId
+			, String address
+			, int area
+			, String type
+			, int price
+			, int rentPrice) {
+		
+		int count = realEstateRepository.insertRealEstate(realtorId, address, area, type, price, rentPrice);
 		return count;
 	}
 	
-	public int updateRealEstateById(int id) {
-		int count = realEstateRepository.updateRealEstateById(id);
+	public int updateRealEstate(int id, String type, int price) {
+		int count = realEstateRepository.updateRealEstate(id, type, price);
 		return count;
 	}
 	
 	public int deleteRealEstate(int id) {
-		int count = realEstateRepository.delectRealEstate(id);
+		int count = realEstateRepository.deleteRealEstate(id);
 		return count;
 	}
 	

@@ -8,17 +8,17 @@
  	<insert id="insertSeller" parameterType="map">
  		INSERT INTO
  			`seller`
- 			(
+ 		(
  			`nickname`
- 			, `profileImage`
  			, `temperature`
- 			)
+ 			, `profileImage`
+ 		)
  		VALUES
- 			(
+ 		(
  			#{nickname}
- 			, #{profileImage}
  			, #{temperature}
- 			)
+ 			, #{profileImage}
+ 		)
  	</insert>
  	
  	<select id="selectLastSeller" resultType="com.garden.spring.test.mvc.domain.Seller">
@@ -32,13 +32,13 @@
  		FROM
  			`seller`
  		ORDER BY
- 			`id`
-		DESC
+ 			`id` DESC
 		LIMIT
-			1;
+			1
  	</select>
  	
- 	<select id="selectSellerById" resultType="com.garden.spring.test.mvc.domain.Seller">
+ 	<select id="selectSeller" parameterType="int"
+ 	resultType="com.garden.spring.test.mvc.domain.Seller">
  		SELECT
 	 		`id`
 	 		, `nickname`

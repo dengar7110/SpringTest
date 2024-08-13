@@ -1,49 +1,60 @@
 package com.garden.spring.test.mvc;
 
+import java.lang.ProcessBuilder.Redirect;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.garden.spring.test.mvc.domain.Seller;
 import com.garden.spring.test.mvc.service.SellerService;
 
 @Controller
+@RequestMapping("/mvc/seller")
 public class SellerController {
 	
 	@Autowired
 	private SellerService sellerService;
-	
-	@GetMapping("/mvc/seller/input")
-	public String insertSellerView() {
-		
-		return "/mvc/sellerInput";
-	}
-	
-	@PostMapping("/mvc/seller/input")
-	public String insertSeller(
-			@RequestParam("nickname") String nickname
-			, @RequestParam("profileImage") String profileImage
-			, @RequestParam("temperature") double temperature) {
-		
-		sellerService.insertSeller(nickname, profileImage, temperature);
-		
-		return "/mvc/sellerInput";
-	}
-	
 
-	@GetMapping("/mvc/seller/info")
-	public String sellerInfo(Model model, @RequestParam(value = "id", required = false) Integer id) {
+	// 데이터 저장 과정을 진행할 페이지
+	@PostMapping("/create")
+	public String createSeller(
+			@RequestParam("nickname") String nickname
+			, @RequestParam("temperature") double temperature
+			, @RequestParam("profileImage") String profileImage) {
 		
+		int count = sellerService.addSeller(nickname, temperature, profileImage);
+		
+		// redirect : response 에 특정 path(경로) 로 이동하라는 정보를 전달
+		return "redirect:/mvc/seller/info";
+		
+	}
+	
+	@GetMapping("/input")
+	public String insertSellerView() {
+		return "/mvc/sellerInput";
+	}
+
+	@GetMapping("/info")
+	public String sellerInfo(
+			@RequestParam(value="id", required=false) Integer id
+			, Model model) {
+		
+		Seller seller = null;
+		// id 가 전달이 안되면 최근 판매자 조회
 		if(id == null) {
-			Seller seller = sellerService.getLastSeller();
-			model.addAttribute("seller", seller);
+			seller = sellerService.getLastSeller();
 		}else {
-			Seller seller = sellerService.getSellerById(id);
-			model.addAttribute("seller", seller);
+			// id 가 전달이 되면 매칭된 판매자 조회
+			seller = sellerService.getSeller(id);
 		}
+		
+		model.addAttribute("seller", seller);
 		
 		return "/mvc/sellerInfo";
 	}

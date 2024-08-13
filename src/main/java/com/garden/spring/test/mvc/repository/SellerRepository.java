@@ -8,13 +8,14 @@ import com.garden.spring.test.mvc.domain.Seller;
 @Mapper
 public interface SellerRepository {
 
+	// 닉네임, 매너온도, 프로필 이미지 경로 전달 받고 한 행을 insert 하는 기능
 	public int insertSeller(
-			@Param("nickname") String nickname
-			,@Param("profileImage") String profileImage
-			,@Param("temperature") double temperature);
+			@Param("nickname") String nickName
+			,@Param("temperature") double temperature
+			,@Param("profileImage") String profileImage);
 
 	public Seller selectLastSeller();
-
-	public Seller selectSellerById(@Param("id") int id);
+  
+	public Seller selectSeller(@Param("id") int id);
 
 }

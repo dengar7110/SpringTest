@@ -141,4 +141,14 @@ public class ThymeleafController {
 		return "thymeleaf/test03";
 	}
 	
+	@GetMapping("/test04")
+	public String test04() {
+		return "/thymeleaf/test04";
+	}
+	
+	@GetMapping("/input")
+	public String test04Input() {
+		return "/thymeleaf/test04-Input";
+	}
+	
 }

@@ -40,7 +40,7 @@ public class WeatherController {
 		return "/thymeleaf/weather/input";
 	}
 	
-	@PostMapping("/input")
+	@PostMapping("/create")
 	public String createWeather(
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy년 MM월 dd일") LocalDate date
 			, @RequestParam("weather") String weather

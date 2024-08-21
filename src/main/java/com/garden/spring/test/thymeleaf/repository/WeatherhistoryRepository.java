@@ -1,5 +1,6 @@
 package com.garden.spring.test.thymeleaf.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -12,8 +13,8 @@ public interface WeatherhistoryRepository {
 	
 	public List<Weatherhistory> selectWeatherhistoryList();
 
-	public int insertWeatherhistory(
-			@Param("date") String date
+	public int insertWeather(
+			@Param("date") LocalDate date
 			, @Param("weather") String weather
 			, @Param("temperatures") double temperatures
 			, @Param("precipitation") double precipitation

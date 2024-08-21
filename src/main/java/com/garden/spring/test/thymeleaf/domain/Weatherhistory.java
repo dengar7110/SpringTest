@@ -1,20 +1,20 @@
 package com.garden.spring.test.thymeleaf.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Weatherhistory {
 
-	private LocalDateTime date;
+	private LocalDate date;
 	private String weather;
 	private double temperatures;
 	private double precipitation;
 	private String microDust;
 	private double windSpeed;
 	
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public String getWeather() {

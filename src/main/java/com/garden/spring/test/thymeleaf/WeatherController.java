@@ -1,10 +1,11 @@
 package com.garden.spring.test.thymeleaf;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +26,8 @@ public class WeatherController {
 	@GetMapping("/list")
 	public String weatherhistory(Model model) {
 		
-		List<Weatherhistory> weatherhistoryList = new ArrayList<>();
-		
-		weatherhistoryList =  weatherhistoryService.getWeatherhistoryList();
+		// 날씨 기록 리스트 얻어 오기
+		List<Weatherhistory> weatherhistoryList =  weatherhistoryService.getWeatherhistoryList();
 		
 		model.addAttribute("weatherhistoryList", weatherhistoryList);
 		
@@ -41,15 +41,15 @@ public class WeatherController {
 	}
 	
 	@PostMapping("/input")
-	public String addweatherhistory(
-			@RequestParam("date") String date
+	public String createWeather(
+			@RequestParam("date") @DateTimeFormat(pattern = "yyyy년 MM월 dd일") LocalDate date
 			, @RequestParam("weather") String weather
 			, @RequestParam("temperatures") double temperatures
 			, @RequestParam("precipitation") double precipitation
 			, @RequestParam("microDust") String microDust
-			, @RequestParam("windSpeed") double windSpeed){
+			, @RequestParam("windSpeed") double windSpeed) {
 		
-		weatherhistoryService.addWeatherhistory(date, weather, temperatures, precipitation, microDust, windSpeed);
+		weatherhistoryService.addWeather(date, weather, temperatures, precipitation, microDust, windSpeed);
 		
 		return "redirect:/thymeleaf/weather/list";
 	}

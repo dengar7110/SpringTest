@@ -62,27 +62,45 @@ public class FavoriteController {
 		return resultMap;
 	}
 	
-//	@PostMapping("/check")
-//	@ResponseBody
-//	public Map<String, String> checkFavoriteUrl(
-//			@RequestParam("url") String url
-//			, Model model){
-//		
-//		List<Favorite> favoriteList = favoriteService.getFavortieList();
-//		model.addAttribute("favoriteList", favoriteList);
-//		
-//		Map<String, String> favoriteUrlMap = new HashMap<>();
-//		
-//		
-//		
-//		for(int i = 0; i< favoriteList.size(); i++) {
-//			Favorite urls = favoriteList.get(i);
-//			favoriteUrlMap.put("url", urls);
-//		}
-//		
-//		
-//		return Map
-//	}
+	//주소 중복 확인 API
+	@PostMapping("/duplicate-url")
+	@ResponseBody
+	public Map<String, Boolean> isDuplicateUrl(@RequestParam("url") String url){
+		
+		boolean isDuplicate = favoriteService.isDuplicateUrl(url);
+		
+		// {"isDuplicate":true}
+		// {"isDuplicate":false}
+		Map<String, Boolean> resultMap = new HashMap<>();
+		
+		if(isDuplicate) {
+			resultMap.put("isDuplicate", true);
+		}else {
+			resultMap.put("isDuplicate", false);
+		}
+		
+		return resultMap;
+	}
+	
+	// 삭제 API
+	@GetMapping("/delete")
+	@ResponseBody
+	public Map<String, String> deleteFavorite(@RequestParam("id") int id) {
+		
+		int count = favoriteService.deleteFavorite(id);
+	
+		// {"result":"success"}
+		// {"result":"fail"}
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(count == 1) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return	resultMap;
+	}
 	
 	
 }

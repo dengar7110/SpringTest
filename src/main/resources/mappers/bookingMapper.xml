@@ -51,8 +51,8 @@
  			`id` = #{id} 	
  	</delete>
  	
- 	<select id="selectBookingByNameAndPhoneNumber" resultType="com.garden.spring.test.ajax.domain.Booking"
- 	parameterType="string">
+ 	<select id="selectBooking" parameterType="map"
+ 	resultType="com.garden.spring.test.ajax.domain.Booking">
  		SELECT
  			`id`
  			, `name`

@@ -79,22 +79,31 @@
         		let name = $("#nameInput").val();
         		let phoneNumber = $("#phoneNumberInput").val();
         		
+        		if(name == ""){
+        			alert("이름을 입력하세요");
+        			return;
+        		}
+        		
+        		if(phoneNumber == "") {
+        			alert("전화번호를 입력하세요");
+        			return;
+        		}
+        		
         		$.ajax({
         			type:"get"
-        			, url:"/ajax/booking/inquire"
+        			, url:"/ajax/booking/search"
         			, data:{"name":name, "phoneNumber":phoneNumber}
         			, success:function(data) {
-        				if(data.result != null) {
-        					let booking = data.result;
-        					alert("이름 : " + booking.name + "\n" + 
-        							"날짜 : " + booking.date + "\n" + 
-        							"일수 : " + booking.day + "\n" + 
-        							"인원 : " + booking.headcount + "\n" + 
-        							"상태 : " + booking.state);
-        					
-        				}else {
-        					alert("조회 결과가 없습니다");
+        				if(data.result == "success"){
+	        				alert("이름 : " + data.booking.name + "\n" + 
+	       							"날짜 : " + data.booking.date + "\n" + 
+	       							"일수 : " + data.booking.day + "\n" + 
+	       							"인원 : " + data.booking.headcount + "\n" + 
+	       							"상태 : " + data.booking.state);
+        				} else{
+        					alert("조회된 데이터가 없습니다!!");
         				}
+        				
         			}
         			, error: function() {
         				alert("조회 에러!");

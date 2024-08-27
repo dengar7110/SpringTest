@@ -74,31 +74,36 @@ public class BookingController {
 		
 		int count = bookingService.deleteBooking(id);
 		
+		// {"result":"success"}
+		// {"result":"fail"}
 		Map<String, String> resultMap = new HashMap<>();
-		
 		if(count == 1) {
 			resultMap.put("result", "success");
 		} else {
 			resultMap.put("result", "fail");
 		}
+		
 		return resultMap;
 	}
 	
-	@GetMapping("/inquire")
+	// 이름과 전화번호를 전달 받고, 일치하는 예약 정보를 response 에 data 로 채우는 API
+	@GetMapping("/search")
 	@ResponseBody
-	public Map<String, Booking> inquireBooking(
+	public Map<String, Object> searchBooking(
 			@RequestParam("name") String name
 			, @RequestParam("phoneNumber") String phoneNumber) {
 		
-		Booking booking = null;
-		booking = bookingService.selectBookingByNameAndPhoneNumber(name, phoneNumber);
+		Map<String, Object> resultMap = new HashMap<>();
 		
-		Map<String, Booking> resultMap = new HashMap<>();
+		Booking booking = bookingService.getBooking(name, phoneNumber);
 		
 		if(booking != null) {
-			resultMap.put("result", booking);
+			// {"result":"success", "booking":{"id":9, "name":"장나라", "headcount":2,"day":1, "date": ...}}
+			resultMap.put("result", "success");
+			resultMap.put("booking", booking);
 		} else {
-			resultMap.put("result", booking);
+			// {"result":"fail"}
+			resultMap.put("result", "fail");
 		}
 		
 		return resultMap;

@@ -23,7 +23,7 @@ public interface BookingRepository {
 
 	public int deleteBooking(@Param("id") int id);
 
-	public Booking selectBookingByNameAndPhoneNumber(
+	public Booking selectBooking(
 			@Param("name") String name
 			, @Param("phoneNumber") String phoneNumber);
 	

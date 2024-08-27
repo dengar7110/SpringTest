@@ -45,7 +45,7 @@
 							<span th:case="취소" class="text-danger">취소</span>
 							<span th:case="*" th:text="${booking.state}">그 외</span>
 						</td>
-						<td><button type="button" th:data-booking-id="${booking.id}" class="btn btn-sm btn-danger delete-btn">삭제</button></td>
+						<td><button type="button" class="btn btn-sm btn-danger delete-btn" th:data-booking-id="${booking.id}">삭제</button></td>
 					</tr>
 				</tbody>
 			</table>
@@ -69,7 +69,6 @@
 
 <script>
 	$(document).ready(function() {
-		
 		$(".delete-btn").on("click", function() {
 			
 			let id = $(this).data("booking-id");
@@ -80,16 +79,14 @@
 				, data:{"id":id}
 				, success:function(data) {
 					if(data.result == "success") {
-						alert("삭제 성공");
 						location.reload();
 					} else {
 						alert("삭제 실패!");
 					}
 				}
 				, error:function() {
-					alert("삭제 에러!");
+					alert("삭제 에러!!");
 				}
-				
 			});
 			
 		});

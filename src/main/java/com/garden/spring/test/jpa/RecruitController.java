@@ -66,8 +66,7 @@ public class RecruitController {
 	@GetMapping("/test7")
 	@ResponseBody
 	public List<Recruit> test7 () {
-		LocalDateTime deadline = LocalDateTime.parse("2026-04-10T15:30:00");
-		List<Recruit> recruitList = recruitRepository.nativeQuery(deadline , 8100, "정규직");
+		List<Recruit> recruitList = recruitRepository.nativeQuery("2026-04-10 00:00:00" , 8100, "정규직");
 		return recruitList;
 	}
 	

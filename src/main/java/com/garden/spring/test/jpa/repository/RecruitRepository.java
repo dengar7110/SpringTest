@@ -30,9 +30,13 @@ public interface RecruitRepository extends JpaRepository<Recruit, Integer> {
 	public List<Recruit> findByRegionAndSalaryBetween(String region, int min, int max);
 	
 	// 마감일이 2026-04-10 이후이고 연봉이 8100 이상인 정규직 공고를 연봉 내림차순으로 조회하세요.
-	@Query(value="SELECT * FROM `recruit` WHERE `deadline` > :deadline AND `salary` > :salary AND `type` = :type ORDER BY `salary` DESC", nativeQuery=true)
+	@Query(value="SELECT * FROM `recruit` "
+			+ "WHERE `deadline` > :deadline "
+			+ "AND `salary` > :salary "
+			+ "AND `type` = :type "
+			+ "ORDER BY `salary` DESC", nativeQuery=true)
 	public List<Recruit> nativeQuery(
-			@Param("deadline") LocalDateTime deadline
+			@Param("deadline") String deadline
 			, @Param("salary") int salary
 			, @Param("type") String type);
 
